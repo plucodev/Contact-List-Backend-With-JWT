@@ -58,7 +58,7 @@ def handle_person():
 
 
 @app.route('/hello', methods=['POST', 'GET'])
-def handle_person():
+def handle_hello():
 
     response_body = {
         "hello": "world"
