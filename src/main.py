@@ -72,10 +72,14 @@ def get_single_person(person_id):
         if user1 is None:
             raise APIException('User not found', status_code=404)
 
-        if "username" in body:
-            user1.username = body["username"]
+        if "name" in body:
+            user1.name = body["name"]
         if "email" in body:
             user1.email = body["email"]
+        if "address" in body:
+            user1.address = body["address"]
+        if "phone" in body:
+            user1.phone = body["phone"]
         db.session.commit()
 
         return jsonify(user1.serialize()), 200
