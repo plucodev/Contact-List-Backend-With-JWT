@@ -56,6 +56,47 @@ def handle_person():
 
     return "Invalid Method", 404
 
+@app.route('/person/<int:person_id>', methods=['PUT', 'GET', 'DELETE'])
+def get_single_person(person_id):
+    """
+    Single person
+    """
+
+    # PUT request
+    if request.method == 'PUT':
+        body = request.get_json()
+        if body is None:
+            raise APIException("You need to specify the request body as a json object", status_code=400)
+
+        user1 = Person.query.get(person_id)
+        if user1 is None:
+            raise APIException('User not found', status_code=404)
+
+        if "username" in body:
+            user1.username = body["username"]
+        if "email" in body:
+            user1.email = body["email"]
+        db.session.commit()
+
+        return jsonify(user1.serialize()), 200
+
+    # GET request
+    if request.method == 'GET':
+        user1 = Person.query.get(person_id)
+        if user1 is None:
+            raise APIException('User not found', status_code=404)
+        return jsonify(user1.serialize()), 200
+
+    # DELETE request
+    if request.method == 'DELETE':
+        user1 = Person.query.get(person_id)
+        if user1 is None:
+            raise APIException('User not found', status_code=404)
+        db.session.delete(user1)
+        return "ok", 200
+
+    return "Invalid Method", 404
+
 
 @app.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
