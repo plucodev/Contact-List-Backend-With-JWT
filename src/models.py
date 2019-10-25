@@ -18,3 +18,19 @@ class Person(db.Model):
             "address": self.address,
             "phone": self.phone
         }
+class Contact(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=False, nullable=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    address = db.Column(db.String(120), unique=False, nullable=True)
+    phone = db.Column(db.String(120), unique=True, nullable=True)
+
+    def __repr__(self):
+        'Contact(name='+self.name+', email='+self.email+ ')'
+    def serialize(self):
+        return {
+            "username": self.username,
+            "email": self.email,
+            "address": self.address,
+            "phone": self.phone
+        }
