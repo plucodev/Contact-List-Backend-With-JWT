@@ -13,7 +13,7 @@ class Person(db.Model):
         'Person(name='+self.name+', email='+self.email+ ')'
     def serialize(self):
         return {
-            "username": self.username,
+            "name": self.name,
             "email": self.email,
             "address": self.address,
             "phone": self.phone
